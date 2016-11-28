@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>Quicksoc v1</title>
+		<style>
+
+
+
+			body{
+				height:100%;
+				margin:0px;
+				font-family:tahoma;
+				font-size:13px; }
+
+			.wrapper{
+				height:100%;}
+
+			#personBar{
+				width:100%;}
+
+			table {
+				border-spacing: 0px;
+				text-align:left;
+				border-right: 1px solid #888;
+				border-bottom: 1px solid #888;}
+
+			td {
+				padding-left: 2px;
+				padding-right: 2px;
+				border-top: 1px solid #888;
+				border-left: 1px solid #888;
+
+
+
+		</style>
+		<script src="Quicksoc_files/jquery-2.js"></script>
+		<script>
+
+
+
+var s = {
+	persons: [],
+	types: []}
+
+function numberToLetter(number){
+	var alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+	var ret = alphabet[number];
+	if (number >= alphabet.length) { ret = "?"; }
+	return ret;}
+
+function Person(){
+	this.name = numberToLetter(s.persons.length);
+	this.type = false;}
+
+function generateMbtiName(ie,sn,ft,jp){
+	var ret = "";
+	if (ie) { ret = ret + "E"; } else { ret = ret + "I"; }
+	if (sn) { ret = ret + "N"; } else { ret = ret + "S"; }
+	if (ft) { ret = ret + "T"; } else { ret = ret + "F"; }
+	if (jp) { ret = ret + "p"; } else { ret = ret + "j"; }
+	return ret;}
+
+function Type(ie,sn,ft,jp){
+	this.ie = ie;
+	this.sn = sn;
+	this.ft = ft;
+	this.jp = jp;
+	this.mbtiName = generateMbtiName(ie,sn,ft,jp);}
+
+function setType(person,type){
+	s.persons[person].type = s.types[type];
+	generateRelations(); }
+
+function getRelation(p1,p2){
+	var ret;
+	p1 = p1.type;
+	p2 = p2.type;
+	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) { ret = "IDN"; }
+	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) { ret = "QID"; }
+	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) {	if (p1.jp) { ret = "CMP" } else { ret = "LKL" }}
+	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) { if (p1.jp) { ret = "BN&lt;" } else { ret = "BN>" }}
+	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) { if (p1.jp) { ret = "LKL" } else { ret = "CMP" }}
+	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) { if (p1.jp) { ret = "BN>" } else { ret = "BN<" }}
+	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) { ret = "EGO"; }
+	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) { ret = "ACT"; }
+	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) { ret = "CNT"; }
+	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) { ret = "MRR"; }
+	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) { if (p1.jp) { ret = "ILL" } else { ret = "SDL" }}
+	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) { if (p1.jp) { ret = "SP&lt;" } else { ret = "SP>" }}
+	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) { if (p1.jp) { ret = "SDL" } else { ret = "ILL"; }}
+	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) { if (p1.jp) { ret = "SP>" } else { ret = "SP&lt;" }}
+	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) { ret = "DLT"; }
+	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) { ret = "CNF"; }
+	return ret;}
+
+function generateRelations(){
+	var table = document.getElementById("relations");
+	var persons = [];
+	var row;
+	var cell;
+	var relation;
+	for (var i = 0; i < s.persons.length; i++) { if(s.persons[i].type) { persons.push(s.persons[i]); }}
+	if (persons.length > 1) {
+		$( "#relations" ).empty();
+		for (var i = 0; i < persons.length; i++) {
+			row = table.insertRow(i);
+			for (var j = 0; j < persons.length; j++) {
+				relation = getRelation(persons[i],persons[j]);
+				cell = row.insertCell(j);
+				cell.innerHTML = persons[i].name + " " + relation + " " + persons[j].name; }}}}
+
+function setTypes(person){
+	var bar = document.getElementById("typeBar");
+	bar.innerHTML = "";
+	var input;
+	for (var i = 0; i < s.types.length; i++){
+		input = document.createElement("BUTTON");
+		var t = document.createTextNode(s.types[i].mbtiName);
+		input.appendChild(t);
+		input.setAttribute("onclick", "setType(" + person + "," + i + ");");
+		bar.appendChild(input);}}
+
+function changeName(person){
+	var name = document.getElementById("personInput" + person);
+	name = name.value;
+	s.persons[person].name = name;
+	generateRelations();}
+
+function delPerson(person){
+	var uiElement;
+	uiElement = document.getElementById("personInput" + person);
+	uiElement.parentNode.removeChild(uiElement);
+	uiElement = document.getElementById("personButton" + person);
+	uiElement.parentNode.removeChild(uiElement);}
+
+function addPerson(){
+	var person;
+	person = new Person();
+	s.persons.push(person);
+	var personIndex = s.persons.length - 1;
+	var bar = document.getElementById("personBar");
+	var input = document.createElement("INPUT");
+	input.setAttribute("type","text");
+	input.setAttribute("onclick", "setTypes('" + personIndex + "');");
+	input.setAttribute("id", "personInput" + personIndex);
+	input.value = person.name;
+	input.setAttribute("onkeyup", "changeName('" + personIndex + "');");
+	bar.appendChild(input);
+	input = document.createElement("BUTTON");
+	var t = document.createTextNode("X");
+	input.appendChild(t);
+	input.setAttribute("onclick", "delPerson('" + personIndex + "');");
+	input.setAttribute("id", "personButton" + personIndex);
+	bar.appendChild(input);}
+
+function initTypeBar(){
+	var bar = document.getElementById("typeBar");
+	bar.innerHTML = "Begin by clicking on a text field to set the name and sociotype of persons A, B and C."; }
+
+function initPersonBar(){
+	var bar = document.getElementById("personBar");
+	bar.innerHTML = "<button onclick=addPerson()>Add person</button>";
+	addPerson(); addPerson(); addPerson();}
+
+function initTypes(){
+	var type;
+	type = new Type(false,false,false,false); s.types.push(type);
+	type = new Type(false,false,false,true); s.types.push(type);
+	type = new Type(false,false,true,false); s.types.push(type);
+	type = new Type(false,false,true,true); s.types.push(type);
+	type = new Type(false,true,false,false); s.types.push(type);
+	type = new Type(false,true,false,true); s.types.push(type);
+	type = new Type(false,true,true,false); s.types.push(type);
+	type = new Type(false,true,true,true); s.types.push(type);
+	type = new Type(true,false,false,false); s.types.push(type);
+	type = new Type(true,false,false,true); s.types.push(type);
+	type = new Type(true,false,true,false); s.types.push(type);
+	type = new Type(true,false,true,true); s.types.push(type);
+	type = new Type(true,true,false,false); s.types.push(type);
+	type = new Type(true,true,false,true); s.types.push(type);
+	type = new Type(true,true,true,false); s.types.push(type);
+	type = new Type(true,true,true,true); s.types.push(type);}
+
+function init() {
+	initTypes();
+	initPersonBar();
+	initTypeBar();}
+	
+
+
+		</script>
+	</head>
+	<body onload="init();">
+		<div style="wrapper">
+			<div id="personBar"></div>
+			<div id="typeBar"></div>
+			<table id="relations"></table>
+		</div>
+	</body>
+</html>
