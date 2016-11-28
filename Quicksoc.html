@@ -100,14 +100,13 @@ function generateRelations(){
 	var cell;
 	var relation;
 	for (var i = 0; i < s.persons.length; i++) { if(s.persons[i].type) { persons.push(s.persons[i]); }}
-	if (persons.length > 1) {
-		$( "#relations" ).empty();
-		for (var i = 0; i < persons.length; i++) {
-			row = table.insertRow(i);
-			for (var j = 0; j < persons.length; j++) {
-				relation = getRelation(persons[i],persons[j]);
-				cell = row.insertCell(j);
-				cell.innerHTML = persons[i].name + " " + relation + " " + persons[j].name; }}}}
+	$( "#relations" ).empty();
+	for (var i = 0; i < persons.length; i++) {
+		row = table.insertRow(i);
+		for (var j = 0; j < persons.length; j++) {
+			relation = getRelation(persons[i],persons[j]);
+			cell = row.insertCell(j);
+			cell.innerHTML = persons[i].name + " " + relation + " " + persons[j].name; }}}
 
 function setTypes(person){
 	var bar = document.getElementById("typeBar");
