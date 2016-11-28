@@ -107,7 +107,7 @@ function getRelation(p1,p2){
 		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/sp.htm'>SP></a>" }}
 	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) {
 		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/sdl.htm'>SDL</a>" }
-			else { ret = "<a target='_blank' href='http://www.socionics.com/rel/ill.htm'>ILL</a>"; }}
+		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/ill.htm'>ILL</a>"; }}
 	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) {
 		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/sp.htm'>SP></a>" }
 		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/sp.htm'>SP&lt;</a>" }}
@@ -166,7 +166,7 @@ function addPerson(){
 	var bar = document.getElementById("personBar");
 	var input = document.createElement("INPUT");
 	input.setAttribute("type","text");
-	input.setAttribute("onclick", "setTypes('" + personIndex + "');");
+	input.setAttribute("onmousedown", "setTypes('" + personIndex + "');");
 	input.setAttribute("id", "personInput" + personIndex);
 	input.value = person.name;
 	input.setAttribute("onkeyup", "changeName('" + personIndex + "');");
