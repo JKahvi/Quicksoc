@@ -130,7 +130,9 @@ function delPerson(person){
 	uiElement = document.getElementById("personInput" + person);
 	uiElement.parentNode.removeChild(uiElement);
 	uiElement = document.getElementById("personButton" + person);
-	uiElement.parentNode.removeChild(uiElement);}
+	uiElement.parentNode.removeChild(uiElement);
+	s.persons[person].type = false;
+	generateRelations();}
 
 function addPerson(){
 	var person;
