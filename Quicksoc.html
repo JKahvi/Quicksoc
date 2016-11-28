@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Quicksoc v1</title>
+		<title>Quicksoc v2</title>
 		<style>
 
 
@@ -75,22 +75,46 @@ function getRelation(p1,p2){
 	var ret;
 	p1 = p1.type;
 	p2 = p2.type;
-	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) { ret = "IDN"; }
-	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) { ret = "QID"; }
-	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) {	if (p1.jp) { ret = "CMP" } else { ret = "LKL" }}
-	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) { if (p1.jp) { ret = "BN&lt;" } else { ret = "BN>" }}
-	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) { if (p1.jp) { ret = "LKL" } else { ret = "CMP" }}
-	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) { if (p1.jp) { ret = "BN>" } else { ret = "BN<" }}
-	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) { ret = "EGO"; }
-	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) { ret = "ACT"; }
-	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) { ret = "CNT"; }
-	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) { ret = "MRR"; }
-	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) { if (p1.jp) { ret = "ILL" } else { ret = "SDL" }}
-	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) { if (p1.jp) { ret = "SP&lt;" } else { ret = "SP>" }}
-	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) { if (p1.jp) { ret = "SDL" } else { ret = "ILL"; }}
-	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) { if (p1.jp) { ret = "SP>" } else { ret = "SP&lt;" }}
-	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) { ret = "DLT"; }
-	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) { ret = "CNF"; }
+	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) {
+		ret = "<a target='_blank' href='http://www.socionics.com/rel/idn.htm'>IDN</a>"; }
+	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) {
+		ret = "<a target='_blank' href='http://www.socionics.com/rel/qid.htm'>QID</a>"; }
+	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) {
+		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/cmp.htm'>CMP</a>" }
+		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/lkl.htm'>LKL</a>" }}
+	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) {
+		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/bn.htm'>BN&lt;</a>" }
+		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/bn.htm'>BN></a>" }}
+	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) {
+		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/lkl.htm'>LKL</a>" }
+		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/cmp.htm'>CMP</a>" }}
+	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) {
+		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/bn.htm'>BN></a>" }
+		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/bn.htm'>BN&lt;</a>" }}
+	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) {
+		ret = "<a target='_blank' href='http://www.socionics.com/rel/ego.htm'>EGO</a>"; }
+	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) {
+		ret = "<a target='_blank' href='http://www.socionics.com/rel/act.htm'>ACT</a>"; }
+	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) {
+		ret = "<a target='_blank' href='http://www.socionics.com/rel/cnt.htm'>CNT</a>"; }
+	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) {
+		ret = "<a target='_blank' href='http://www.socionics.com/rel/mrr.htm'>MRR</a>"; }
+	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) {
+		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/ill.htm'>ILL</a>" }
+		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/sdl.htm'>SDL</a>" }}
+	if ((p1.ie != p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) {
+		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/sp.htm'>SP&lt;</a>" }
+		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/sp.htm'>SP></a>" }}
+	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) {
+		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/sdl.htm'>SDL</a>" }
+			else { ret = "<a target='_blank' href='http://www.socionics.com/rel/ill.htm'>ILL</a>"; }}
+	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) {
+		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/sp.htm'>SP></a>" }
+		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/sp.htm'>SP&lt;</a>" }}
+	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) {
+		ret = "<a target='_blank' href='http://www.socionics.com/rel/dlt.htm'>DLT</a>"; }
+	if ((p1.ie != p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) {
+		ret = "<a target='_blank' href='http://www.socionics.com/rel/cnf.htm'>CNF</a>"; }
 	return ret;}
 
 function generateRelations(){
