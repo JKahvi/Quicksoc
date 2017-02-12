@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Quicksoc v2</title>
+		<title>Quicksoc v3</title>
 		<style>
 
 
@@ -83,13 +83,13 @@ function getRelation(p1,p2){
 		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/cmp.htm'>CMP</a>" }
 		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/lkl.htm'>LKL</a>" }}
 	if ((p1.ie == p2.ie) && (p1.sn == p2.sn) && (p1.ft != p2.ft) && (p1.jp != p2.jp)) {
-		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/bn.htm'>BN&lt;</a>" }
+		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/bn.htm'>BN&gt;</a>" }
 		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/bn.htm'>BN></a>" }}
 	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp == p2.jp)) {
 		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/lkl.htm'>LKL</a>" }
 		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/cmp.htm'>CMP</a>" }}
 	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft == p2.ft) && (p1.jp != p2.jp)) {
-		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/bn.htm'>BN></a>" }
+		if (p1.jp) { ret = "<a target='_blank' href='http://www.socionics.com/rel/bn.htm'>BN&lt;</a>" }
 		else { ret = "<a target='_blank' href='http://www.socionics.com/rel/bn.htm'>BN&lt;</a>" }}
 	if ((p1.ie == p2.ie) && (p1.sn != p2.sn) && (p1.ft != p2.ft) && (p1.jp == p2.jp)) {
 		ret = "<a target='_blank' href='http://www.socionics.com/rel/ego.htm'>EGO</a>"; }
